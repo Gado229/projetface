@@ -1,0 +1,59 @@
+<header>
+  <table>
+    <tr>
+      <td><%= image_tag "facebook.png", class: 'fakebook-logo' %></td>
+      <td>
+        <div class="fake-search-box">
+          <div class="search-sujest">Chercher</div>
+          <div class="search-content"></div>
+          <div class="search-img"><%= image_tag "Search.png", class: 'search-png' %></div>
+        </div>
+      </td>
+      <td></td>
+      <td>
+        <div class="header-menu">
+          <% flash.each do |key, value| %>
+            <%= content_tag(:div, value, class: "#{key}") %>
+          <% end %>
+          <span>
+          <% if logged_in? %>
+            <%= link_to "#{current_user.name}", user_path(current_user.id) %>
+          </span>
+          <span class="blue-line"> | </span>
+          <span>
+            <%= link_to "Accueil", blogs_path %>
+          </span>
+          <span class="blue-line"> | </span>
+          <span>Trouver des amis</span>
+          <span class="blue-line"> | </span>
+          <span>Réalisation de</span>
+          <span class="blue-line"> | </span>
+          <span>Oursin de</span>
+          <span class="blue-line"> | </span>
+          <span>
+          <%= link_to "Logout", session_path(current_user.id), method: :delete %>
+          <% else %>
+            <%= link_to "S'inscrire", new_user_path %>
+            <%= link_to "connexion", new_session_path %>
+          <% end %>
+          </span>
+        </div>
+      </td>
+    </tr>
+  </table>
+</header>
+
+<main>
+  <div class="login_box">
+    <h1 >Se connecter</h1>
+      <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+      <%= f.label :email %>
+      <%= f.email_field :email %><br>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    <br>
+    <br>
+      <%= f.submit "connexion" %>
+    <% end %>
+  </div>
+</main>

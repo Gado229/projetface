@@ -1,0 +1,179 @@
+<header>
+  <table>
+    <tr>
+      <td><%= image_tag "facebook.png", class: 'fakebook-logo' %></td>
+      <td>
+        <div class="fake-search-box">
+          <div class="search-sujest">Recherche</div>
+          <div class="search-img"><%= image_tag "Search.png", class: 'search-png' %></div>
+        </div>
+      </td>
+      <td><%= image_tag "acount-pic.png", size: '25x25', class: 'header-acount-pic' %></td>
+      <td>
+        <div class="header-menu">
+          <% flash.each do |key, value| %>
+            <%= content_tag(:div, value, class: "#{key}") %>
+          <% end %>
+          <span>
+          <% if logged_in? %>
+            <%= link_to "#{current_user.name}", user_path(current_user.id) %>
+          </span>
+          <span class="blue-line"> | </span>
+          <span>
+            <%= link_to "Accueil", blogs_path %>
+          </span>
+          <span class="blue-line"> | </span>
+          <a href= "#"<span>Amis</span></a>
+          <span class="blue-line"> | </span>
+          <a href="#"<span>Parametre</span></a>
+          <span class="blue-line"> | </span>
+          <span>
+          <%= link_to "Deconnexion", session_path(current_user.id), method: :delete %>
+          <% else %>
+            <%= link_to "S'inscrire", new_user_path %>
+            <%= link_to "Se connecter", new_session_path %>
+
+          <% end %>
+          </span>
+        </div>
+      </td>
+    </tr>
+  </table>
+</header>
+
+<main>
+  <div class="main-block">
+    <div class="main-block-left">
+      <%= image_tag "acount-pic.png", size: '20x20', class: 'left-acount-pic' %>
+      <br>
+      <div class="left-box-focus">
+        <%= image_tag "actualites.png", size: '20x20' %>
+        <a href="#"<span>Amis</span></a>
+        <%= image_tag "reader.png", size: '20x20', class: 'left-reader' %>
+      </div>
+      <div class="left-box-unfocus">
+        <%= image_tag "messenger.jpg", size: '20x20' %>
+        <a href ="#" target="_blank"<span>Messenger</span></a>
+      </div>
+      <div class="left-box-unfocus-alt">
+        <%= image_tag "market.png", size: '20x20' %>
+        <a href ="https://www.facebook.com/watch" target="_blank"<span>Marketplace</span></a>
+      </div>
+      <div class="discover">Vos raccourcis</div>
+      <div class="left-box-unfocus-alt">
+        <%= image_tag "group.png", size: '20x20' %>
+        <a href="https://www.facebook.com/search/top?q=group%20facebook" target="_blank"<span>Group</span></a>
+      </div>
+      <div class="left-box-unfocus-alt">
+        <%= image_tag "flag.png", size: '20x20' %>
+        <a href="https://www.facebook.com/search/top?q=page%20facebook" target="_blank"<span>page</span></a>
+      </div>
+      <div class="left-box-unfocus-alt">
+        <%= image_tag "evenement.png", size: '20x20' %>
+        <a href="https://www.facebook.com/events/?acontext=%7B%22action_history%22%3A%22null%22%7D" target="_blank"<span>Evenement</span></a>
+      </div>
+      <div class="left-box-unfocus-alt">
+        <%= image_tag "amis.png", size: '20x20' %>
+        <a href="https://www.facebook.com/friends" target="_blank"<span>Liste d'amis</span></a>
+      </div>
+      <div class="left-box-more">
+        <%= image_tag "plus.png", size: '20x20' %>
+        <a href="#"<span>Voir plus...</span></a>
+      </div>
+    </div>
+    <div class="main-block-center">
+      <div class="main-box-new">
+        &nbsp;&nbsp;
+        <button type="button">
+          <%= link_to 'Creer Un Poste', new_blog_path %>
+        </button>
+      </div>
+      <% @blogs.each do |blog| %>
+      <div class="main-box">
+        <table>
+          <tr>
+            <td><%= image_tag "acount-pic.png", size: '40x40', class: 'box-acount-pic' %></td>
+            <td>
+            <div class="box-name"><%= blog.user.name %></div>
+            <div class="box-time"><%= blog.created_at.try(:strftime," %m mois %d jour ") %></div>
+            </td>
+            <td class="detail"><%= link_to 'Détail', blog_path(blog.id) %></td>
+            <td><%= link_to "Edite", edit_blog_path(blog.id) %></td>
+            <td>
+              <%= link_to 'Supprimer', blog_path(blog.id), method: :delete, data: { confirm: 'Confirmer？' } %>
+            </td>
+          </tr>
+        </table>
+        <div class="box-content">
+        <%= blog.content %>
+        </div>
+        <% if blog.image.file.nil? %>
+          <% else %>
+        <div class="box-pic">
+          <%= image_tag blog.image.url %>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+    <div class="main-block-right">
+      <span>BENIN</span>
+      <div class="recommend-group">
+        <%= image_tag "logBenjust.jpg", class: 'recommend-pic' %>
+        <table>
+          <tr>
+            <td>
+              <p class="blue-line">Benin Justice</p>
+              <p class="grey-line">Juste</p>
+            </td>
+            <td>
+              <a href="#" target="_blank"<div class="entry_btn">Visite !</div></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="recommend-group">
+        <%= image_tag "japan.png", class: 'recommend-pic' %>
+        <table>
+          <tr>
+            <td>
+              <p class="blue-line">Le Japon</p>
+              <p class="grey-line">Fraiche</p>
+            </td>
+            <td>
+            <a href="#" target="_blank"<div class="entry_btn">Visite !</div></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="recommend-group">
+        <%= image_tag "benlogo.png", class: 'recommend-pic' %>
+        <table>
+          <tr>
+            <td>
+              <p class="blue-line">Le Drapeau</p>
+              <p class="grey-line">L'unique</p>
+            </td>
+            <td>
+            <a href="#" target="_blank"<div class="entry_btn">Visite !</div></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="recommend-group">
+        <%= image_tag "benlogo.png", class: 'recommend-pic' %>
+        <table>
+          <tr>
+            <td>
+              <p class="blue-line">Le Drapeau</p>
+              <p class="grey-line">L'unique</p>
+            </td>
+            <td>
+            <a href="#" target="_blank"<div class="entry_btn">Visite !</div></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>

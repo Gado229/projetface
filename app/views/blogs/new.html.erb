@@ -1,0 +1,50 @@
+<header>
+  <table>
+    <tr>
+      <td><%= image_tag "facebook.png", class: 'fakebook-logo' %></td>
+      <td>
+        <div class="fake-search-box">
+          <div class="search-sujest">Chercher</div>
+          <div class="search-content"></div>
+          <div class="search-img"><%= image_tag "Search.png", class: 'search-png' %></div>
+        </div>
+      </td>
+      <td><%= image_tag "acount-pic.png", size: '25x25', class: 'header-acount-pic' %></td>
+      <td>
+        <div class="header-menu">
+          <% flash.each do |key, value| %>
+            <%= content_tag(:div, value, class: "#{key}") %>
+          <% end %>
+          <span>
+          <% if logged_in? %>
+            <%= link_to "#{current_user.name}", user_path(current_user.id) %>
+          </span>
+          <span class="blue-line"> | </span>
+          <span>
+            <%= link_to "Accueil", blogs_path %>
+          </span>
+          <span class="blue-line"> | </span>
+          <span>Parametres</span>
+          <span class="blue-line"> | </span>
+          <span>
+          <%= link_to "deconnexion", session_path(current_user.id), method: :delete %>
+          <% else %>
+            <%= link_to "s'inscrire", new_user_path %>
+            <%= link_to "connexion", new_session_path %>
+          <% end %>
+          </span>
+        </div>
+      </td>
+    </tr>
+  </table>
+</header>
+
+<main>
+  <div class="general-box">
+    <h1>Nouvelle publication</h1>
+
+    <%= render 'form' %>
+
+    <%= link_to 'Retour', blogs_path %>
+  </div>
+</main>

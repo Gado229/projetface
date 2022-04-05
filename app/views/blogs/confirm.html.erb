@@ -1,0 +1,61 @@
+<header>
+  <table>
+    <tr>
+      <td><%= image_tag "facebook.png", class: 'fakebook-logo' %></td>
+      <td>
+        <div class="fake-search-box">
+          <div class="search-sujest">Chercher</div>
+          <div class="search-content"></div>
+          <div class="search-img"><%= image_tag "Search.png", class: 'search-png' %></div>
+        </div>
+      </td>
+      <td><%= image_tag "acount-pic.png", size: '25x25', class: 'header-acount-pic' %></td>
+      <td>
+        <div class="header-menu">
+          <% flash.each do |key, value| %>
+            <%= content_tag(:div, value, class: "#{key}") %>
+          <% end %>
+          <span>
+          <% if logged_in? %>
+            <%= link_to "#{current_user.name}", user_path(current_user.id) %>
+          </span>
+          <span class="blue-line"> | </span>
+          <span>
+            <%= link_to "Accueil", blogs_path %>
+          </span>
+          <span class="blue-line"> | </span>
+          <span>Amis </span>
+          <span class="blue-line"> | </span>
+          <span>Parametres</span>
+          <span class="blue-line"> | </span>
+          <span>
+          <%= link_to "Deconnexion", session_path(current_user.id), method: :delete %>
+          <% else %>
+            <%= link_to "S'enregistrer", new_user_path %>
+            <%= link_to "Connexion", new_session_path %>
+          <% end %>
+          </span>
+        </div>
+      </td>
+    </tr>
+  </table>
+</header>
+
+<main>
+<div class="general-box">
+  <h3>Confirmer ?</h3>
+  <%= form_with(model: @blog, url: blogs_path, local: true) do |form| %>
+    <%= form.hidden_field :content %>
+    <p><%= @blog.content %></p>
+    <%= image_tag(@blog.image.url) if @blog.image && @blog.image.url %>
+    <%= form.hidden_field :image_cache %>
+    <br>
+    <br>
+    <p><%= form.submit "Publier" %><p/>
+  <% end %>
+  <%= form_with(model:@blog, url:new_blog_path, local:true, method:"get") do |form| %>
+    <%= form.hidden_field :image_cache %>
+    <p><%= form.submit "Non", name: "retour" %><p/>
+  <% end %>
+</div>
+</main>

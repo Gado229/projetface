@@ -1,0 +1,73 @@
+<header>
+  <table>
+    <tr>
+      <td><%= image_tag "facebook.png", class: 'fakebook-logo' %></td>
+      <td>
+        <div class="fake-search-box">
+          <div class="search-sujest">Chercher</div>
+          <div class="search-content"></div>
+          <div class="search-img"><%= image_tag "Search.png", class: 'search-png' %></div>
+        </div>
+      </td>
+      <td> </td>
+      <td>
+        <div class="header-menu">
+          <% flash.each do |key, value| %>
+            <%= content_tag(:div, value, class: "#{key}") %>
+          <% end %>
+          <span>
+          <% if logged_in? %>
+            <%= link_to "#{current_user.name}", user_path(current_user.id) %>
+          </span>
+          <span class="blue-line"> | </span>
+          <span>
+            <%= link_to "Accueil", blogs_path %>
+          </span>
+          <span class="blue-line"> | </span>
+          <span>Trouver des amis</span>
+          <span class="blue-line"> | </span>
+          <span>Parametres</span>
+          <span class="blue-line"> | </span>
+          <span>うに</span>
+          <span class="blue-line"> | </span>
+          <span>
+          <%= link_to "Deconnexion", session_path(current_user.id), method: :delete %>
+          <% else %>
+            <%= link_to "Inscription", new_user_path %>
+            <%= link_to "Se connecter", new_session_path %>
+          <% end %>
+          </span>
+        </div>
+      </td>
+    </tr>
+  </table>
+</header>
+
+<main>
+  <div class="general-box">
+    <h1>INSCRIVEZ-VOUS ICI !!!</h1>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2> Vous avez fais <%= pluralize(@user.errors.count, "erreurs") %> </h2>
+        <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= form_with(model: @user, local: true) do |f| %>
+      <%= f.label :name, 'Nom Du Compte:' %>
+      <p class="hey"><%= f.text_field :name %><br></p>
+      <%= f.label :email, 'E-mail Adress:' %>
+      <p class="hey"><%= f.email_field :email %><br></p>
+      <%= f.label :password, 'Mot de passe :' %>
+      <p class="hey"><%= f.password_field :password %><br></p>
+      <%= f.label :password_confirmation, 'Mot de passe (confirmation) :' %>
+      <p class="hey"><%= f.password_field :password_confirmation %></p>
+      <br>
+      <br>
+      <p><%= f.submit "Créer un compte" %></p>
+    <% end %>
+  </div>
+</main>

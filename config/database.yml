@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: ProjetFacebook_development
+
+test:
+  <<: *default
+  database: ProjetFacebook_test
+
+production:
+  <<: *default
+  database: ProjetFacebook_production
+  username: ProjetFacebook
+  password: <%= ENV['PROJETFACEBOOK_DATABASE_PASSWORD'] %>
