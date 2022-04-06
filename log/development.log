@@ -499,3 +499,60 @@ Processing by BlogsController#index as HTML
 Completed 200 OK in 27ms (Views: 24.7ms | ActiveRecord: 0.9ms | Allocations: 12581)
 
 
+Started GET "/" for ::1 at 2022-04-06 10:26:59 +0100
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BlogsController#index as HTML
+  Rendering blogs/index.html.erb within layouts/application
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/helpers/sessions_helper.rb:3:in `current_user'
+  [1m[36mBlog Load (0.8ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs"[0m
+  ↳ app/views/blogs/index.html.erb:91
+  Rendered blogs/index.html.erb within layouts/application (Duration: 52.5ms | Allocations: 20125)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 142ms (Views: 56.5ms | ActiveRecord: 5.3ms | Allocations: 29754)
+
+
+Started GET "/sessions/new" for ::1 at 2022-04-06 10:27:10 +0100
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/helpers/sessions_helper.rb:3:in `current_user'
+  Rendered sessions/new.html.erb within layouts/application (Duration: 10.7ms | Allocations: 5058)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 18ms (Views: 16.2ms | ActiveRecord: 0.3ms | Allocations: 9636)
+
+
+Started POST "/sessions" for ::1 at 2022-04-06 10:27:12 +0100
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"0d73sQm8jBWELBayJ6+a8u+AnlVSDRutvn4trIRn6n9/QW8BhvpHy9qf5h1EozzphzsOmpjv3RFRnC9MRZo/Jg==", "session"=>{"email"=>"imorougrr@gmail.com", "password"=>"[FILTERED]"}, "commit"=>"connexion"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "imorougrr@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:6:in `create'
+Redirected to http://localhost:3000/blogs
+Completed 302 Found in 280ms (ActiveRecord: 5.1ms | Allocations: 4781)
+
+
+Started GET "/blogs" for ::1 at 2022-04-06 10:27:12 +0100
+Processing by BlogsController#index as HTML
+  Rendering blogs/index.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/sessions_helper.rb:3:in `current_user'
+  [1m[36mBlog Load (0.3ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs"[0m
+  ↳ app/views/blogs/index.html.erb:91
+  Rendered blogs/index.html.erb within layouts/application (Duration: 15.3ms | Allocations: 9183)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 21ms (Views: 19.9ms | ActiveRecord: 0.7ms | Allocations: 12699)
+
+
+Started GET "/users/1" for ::1 at 2022-04-06 10:27:24 +0100
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:17:in `show'
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/sessions_helper.rb:3:in `current_user'
+  Rendered users/show.html.erb within layouts/application (Duration: 4.7ms | Allocations: 3231)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 15ms (Views: 10.6ms | ActiveRecord: 0.7ms | Allocations: 8451)
+
+
